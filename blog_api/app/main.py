@@ -30,11 +30,10 @@ async def list_articles(
 ):
     """
     Получить список статей с возможностью фильтрации и пагинации.
-
-    - **status**: Фильтр по статусу (draft, published)
-    - **title_contains**: Поиск по части заголовка
-    - **skip**: Пропустить первые N записей
-    - **limit**: Ограничить количество результатов
+    - status: Фильтр по статусу (draft, published)
+    - title_contains: Поиск по части заголовка
+    - skip: Пропустить первые N записей
+    - limit: Ограничить количество результатов
     """
     articles = article_store.filter_articles(status=status, title_contains=title_contains)
     return articles[skip:skip + limit]
@@ -51,8 +50,7 @@ async def list_articles(
 async def get_article(article_id: int):
     """
     Получить конкретную статью по её идентификатору.
-
-    - **article_id**: ID статьи
+    - article_id: ID статьи
     """
     article = article_store.get_by_id(article_id)
     if not article:
@@ -75,10 +73,9 @@ async def get_article(article_id: int):
 async def create_article(article: ArticleCreate):
     """
     Создать новую статью.
-
-    - **title**: Заголовок статьи (обязательный)
-    - **content**: Содержание статьи (обязательный)
-    - **status**: Статус статьи (draft/published, по умолчанию draft)
+    - title: Заголовок статьи (обязательный)
+    - content: Содержание статьи (обязательный)
+    - status: Статус статьи (draft/published, по умолчанию draft)
     """
     return article_store.create(article)
 
@@ -94,11 +91,10 @@ async def create_article(article: ArticleCreate):
 async def update_article(article_id: int, article_update: ArticleUpdate):
     """
     Полностью обновить статью.
-
-    - **article_id**: ID статьи для обновления
-    - **title**: Новый заголовок (опционально)
-    - **content**: Новое содержание (опционально)
-    - **status**: Новый статус (опционально)
+    - article_id: ID статьи для обновления
+    - title: Новый заголовок (опционально)
+    - content: Новое содержание (опционально)
+    - status: Новый статус (опционально)
     """
     updated_article = article_store.update(article_id, article_update)
     if not updated_article:
@@ -121,8 +117,7 @@ async def update_article(article_id: int, article_update: ArticleUpdate):
 async def delete_article(article_id: int):
     """
     Удалить статью по ID.
-
-    - **article_id**: ID статьи для удаления
+    - article_id: ID статьи для удаления
     """
     if not article_store.delete(article_id):
         raise HTTPException(
